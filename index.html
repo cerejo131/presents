@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carta aberta pra você — 5 meses</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ff6b81; --christmas:#1db954; --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071226 0%, #081227 40%, #0b1224 100%);color:#e8eef6;line-height:1.5}
+    .wrap{max-width:980px;margin:32px auto;padding:24px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--christmas),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+    h1{margin:0;font-size:1.7rem}
+    p.lead{color:var(--muted);margin-top:6px;font-size:1rem}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));border-radius:16px;padding:20px;margin-top:20px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+
+    .letter{font-size:1.12rem;padding:14px;border-radius:12px;background:var(--glass);margin-bottom:18px}
+
+    .meta{display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+    .meta small{color:var(--muted)}
+
+    /* Countdown */
+    .countdown{margin-top:16px;padding:18px;border-radius:16px;background:rgba(255,255,255,0.04);text-align:center;box-shadow:0 0 20px rgba(255,255,255,0.05)}
+    .countdown h2{margin:0 0 8px;font-size:1.4rem;color:#ffd8d8}
+    .countdown span{font-size:1.3rem;font-weight:700;color:var(--accent)}
+
+    /* Bíblia */
+    .bible{margin-top:18px;padding:18px;border-left:4px solid var(--christmas);background:rgba(255,255,255,0.03);border-radius:12px;font-size:1.05rem;font-style:italic}
+
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
+    .thumb{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;aspect-ratio:1/1;background:#0b1220;display:flex;align-items:center;justify-content:center}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .thumb .caption{position:absolute;left:8px;bottom:8px;padding:6px 8px;border-radius:10px;background:linear-gradient(90deg,rgba(0,0,0,0.45),rgba(0,0,0,0.25));font-size:0.85rem}
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    button{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:inherit;cursor:pointer}
+    .cta{background:linear-gradient(90deg,var(--accent),#f97316);border:none;color:#081226;padding:10px 14px;font-weight:700}
+
+    .heart{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(180deg,#ff92a9,#ff6b81);box-shadow:0 10px 30px rgba(255,107,129,0.18)}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal .box{width:min(900px,96%);height:min(80vh,820px);background:linear-gradient(180deg,#071227,#081226);border-radius:14px;padding:14px;display:flex;flex-direction:column}
+    .modal .top{display:flex;justify-content:space-between;align-items:center}
+    .modal img{max-height:calc(80vh - 120px);object-fit:contain;margin:12px auto;border-radius:8px}
+
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">AM</div>
+      <div>
+        <h1>Carta aberta pra minha mulher — 5 meses</h1>
+        <p class="lead">Uma surpresa de Natal, uma declaração, um álbum… e um contador para o nosso dia 12.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="meta">
+        <small>Para: <strong>Seu amor</strong></small>
+        <small>•</small>
+        <small>Hoje: <strong id="date"></strong></small>
+        <small>•</small>
+        <small>Próximo mês juntos: <strong>12/12/2025</strong></small>
+      </div>
+
+      <!-- Countdown -->
+      <div class="countdown">
+        <h2>Faltam <span id="cd">...</span> para nossos 5 meses 💚✨</h2>
+      </div>
+
+      <!-- Bíblia -->
+      <div class="bible">
+        "O amor é paciente, o amor é bondoso. Não inveja, não se vangloria, não se orgulha." — 1 Coríntios 13:4
+      </div>
+
+      <!-- Carta -->
+      <div class="letter" id="letter">
+        <p>O meu amor por você sempre foi verdadeiro. E mais do que isso: foi único.
+Tudo aquilo que eu nunca senti por ninguém… eu sinto por você. E só por você.
+
+Eu fico feliz demais porque Deus foi tão bom comigo, tão generoso, tão perfeito nos detalhes, que Ele colocou você na minha vida. E eu prometo cuidar de você como o melhor homem que eu puder ser: como namorado, como futuro esposo… e até com o cuidado de um pai.
+Porque isso é amor. Amor de verdade.
+
+Sempre disseram que o amor faz a gente fazer coisas meio loucas, quase impossíveis… mas eu nunca acreditei nisso.
+A verdade é que eu nunca tinha me apaixonado de verdade.
+
+Mas desde o primeiro dia de aula, quando eu te vi com aquela blusa vermelha e a calça legging, eu me apaixonei. Eu me encantei por você. Eu falava de você pros moleques toda hora — o quanto você era bonita, charmosa, cheirosa… tudo em você me prendia.
+
+Hoje eu entendo: o amor faz a gente fazer coisas que parecem loucura. Faz a gente escrever poesia, carta, criar site, música, postar foto, fazer mil coisas só pra ver a pessoa que ama feliz.
+
+E, de verdade mesmo, amor…
+Eu daria minha vida por você.
+Se fosse pra escolher entre eu e você, eu escolheria você.
+Eu me sacrificaria pela única garota por quem eu realmente me apaixonei nessa vida.
+
+Eu sou muito grato por tudo que a gente está vivendo. Por cada sorriso, cada momento, cada detalhe nosso. Eu nunca tinha feito nada disso por ninguém antes. Você foi a primeira.
+E isso é muito louco, né? Parece até que eu já sabia como amar… mas é só instinto. Instinto de querer você.
+
+E eu sei que eu não fui o seu primeiro namorado. Talvez nem seu primeiro amor.
+Mas o que eu prometo pra você, Fantiny, é simples e eterno:
+
+Eu vou ser o seu último.
+O seu amor definitivo.
+Porque eu cheguei pra ficar.</p>
+      </div>
+
+      <div class="controls">
+        <button onclick="downloadPDF()">📄 Imprimir / Salvar PDF</button>
+        <button class="cta" onclick="openModal(0)">💝 Ver álbum</button>
+        <button onclick="toggleMusic()" id="musicBtn">🔊 Tocar música</button>
+      </div>
+      <audio id="music" loop>
+  
+
+
+      <div style="margin-top:14px" class="gallery" id="gallery">
+        <div class="thumb" onclick="openModal(0)"><img src="imagens/foto1.jpeg"><div class="caption">Nós</div></div>
+        <div class="thumb" onclick="openModal(1)"><img src="imagens/foto2.jpeg"><div class="caption">Natal</div></div>
+        <div class="thumb" onclick="openModal(2)"><img src="imagens/foto 3.jpeg"><div class="caption">Sorriso</div></div>
+        <div class="thumb" onclick="openModal(3)"><img src="imagens/foto 4.jpeg"><div class="caption">Abraço</div></div>
+      </div>
+    </section>
+
+    <footer>
+      nosso amor é eterno e eu sempre estarei aqui se precisar de mim meu amor.
+    </footer>
+  </div>
+
+  <div class="heart">❤️</div>
+
+  <div class="modal" id="modal">
+    <div class="box">
+      <div class="top"><strong id="mCaption">Foto</strong><div><button onclick="prev()">◀</button><button onclick="next()">▶</button><button onclick="closeModal()">✖</button></div></div>
+      <img id="mImg" src="">
+    </div>
+  </div>
+
+  <audio id="music" loop src="https://files.catbox.moe/9qbn1t.mp3"></audio>
+
+<script>
+  const imgs = [   
+    {src:'imagens/foto1.jpeg ', caption:'nós'},
+    {src:'imagens/foto2.jpeg', caption:'Natal'},
+    {src:'imagens/foto 3.jpeg', caption:'Sorriso'},
+    {src:'imagens/foto 4.jpeg', caption:'Abraço'}
+  ];
+  let idx=0; const modal=document.getElementById('modal'); const mImg=document.getElementById('mImg'); const mCaption=document.getElementById('mCaption');
+  function openModal(i){idx=i; mImg.src=imgs[idx].src; mCaption.textContent=imgs[idx].caption; modal.classList.add('open');}
+  function closeModal(){modal.classList.remove('open')}
+  function prev(){idx=(idx-1+imgs.length)%imgs.length; openModal(idx)}
+  function next(){idx=(idx+1)%imgs.length; openModal(idx)}
+  modal.addEventListener('click',(e)=>{if(e.target===modal)closeModal()});
+
+  const music = document.getElementById('music');
+  function toggleMusic(){ if(music.paused)music.play(); else music.pause(); }
+
+  function downloadPDF(){ window.print(); }
+
+  document.getElementById('date').textContent = new Date().toLocaleDateString('pt-BR');
+
+  // countdown
+  const target = new Date('2025-12-12T00:00:00');
+  function tick(){
+    const now = new Date();
+    const diff = target - now;
+    if(diff<=0){document.getElementById('cd').textContent = '0 dias'; return;}
+    const d = Math.floor(diff/1000/60/60/24);
+    document.getElementById('cd').textContent = `${d} dias`;
+  }
+  tick(); setInterval(tick, 1000*60*60);
+</script>
+
+</body>
+</html>
